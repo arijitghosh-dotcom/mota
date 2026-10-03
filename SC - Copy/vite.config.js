@@ -8,4 +8,8 @@ export default defineConfig({
     port: 3000,
     open: true
   }
+  preview: {
+  allowedHosts: true // Or use ['mota-cs49.onrender.com']
+  }
 })
+
