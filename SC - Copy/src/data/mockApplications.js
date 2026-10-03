@@ -1,0 +1,72 @@
+export const SCHEMES = [
+  {
+    id: "POST_MATRIC",
+    code: "BVOBC",
+    name: "Post-Matric Scholarship Scheme For ST Students",
+    schemeType: "Centrally Sponsored Scheme",
+    benefitType: "In Cash (DBT)",
+    category: "Secondary & Higher Education",
+    description: "Financial assistance to ST students pursuing post-secondary/post-matriculation courses in recognized institutions (Classes XI, XII, UG, PG, Diploma). Covers around 30 lakh ST beneficiaries via DBT.",
+    maxIncome: 250000,
+    minPercentage: 45,
+    slots: "Uncapped (Covering all eligible ST students)",
+    stipendAmount: "Maintenance allowance + Compulsory non-refundable fee reimbursement",
+    docsRequired: ["ST Caste Certificate", "Family Income Certificate (≤ ₹2.5L)", "Class X / Qualifying Marksheet", "Institute Admission & Fee Slip"]
+  },
+  {
+    id: "PRE_MATRIC",
+    code: "BPVGK",
+    name: "Pre-Matric Scholarship Scheme For ST Students",
+    schemeType: "Centrally Sponsored Scheme",
+    benefitType: "In Cash (DBT)",
+    category: "School Education (Classes IX - X)",
+    description: "Assists ST parents to send children to Class IX and X to prevent drop-outs. Shared 75:25 between Centre and States (90:10 for NE/Hilly states).",
+    maxIncome: 250000,
+    minPercentage: 40,
+    slots: "Uncapped (Class IX & X ST Students)",
+    stipendAmount: "Day Scholars: ₹225/month | Hostellers: ₹525/month (10 months/yr)",
+    docsRequired: ["ST Caste Certificate", "Income Certificate (≤ ₹2.5L)", "School Enrolment Verification", "Aadhaar Linked Bank Account"]
+  },
+  {
+    id: "TOP_CLASS",
+    code: "A023B",
+    name: "Top Class Education Scheme for ST Students",
+    schemeType: "Central Sector Scheme",
+    benefitType: "In Cash (DBT)",
+    category: "Premier Higher Education (IITs, IIMs, NITs, AIIMS, NLUs)",
+    description: "Encourages meritorious ST students to pursue studies in notified premier institutes. Covers full tuition fee, living expenses, and computer allowance.",
+    maxIncome: 600000,
+    minPercentage: 60,
+    slots: "1,000 Annual Slots",
+    stipendAmount: "Full Tuition Fee + ₹3,000/mo Living Expenses + ₹45,000 Computer Grant",
+    docsRequired: ["ST Caste Certificate", "Income Certificate (≤ ₹6.0L)", "JEE / CAT / NEET Scorecard", "Premier Institute Admission Letter"]
+  },
+  {
+    id: "NFST",
+    code: "ARG45",
+    name: "National Fellowship for ST Students",
+    schemeType: "Central Sector Scheme",
+    benefitType: "In Cash (DBT)",
+    category: "Ph.D. & M.Phil Research Fellowships",
+    description: "Provides financial support to ST research scholars pursuing M.Phil. and Ph.D. in Indian Universities/Institutions recognized by UGC.",
+    maxIncome: 600000,
+    minPercentage: 55,
+    slots: "750 Annual Fellowships",
+    stipendAmount: "JRF: ₹37,000/mo | SRF: ₹42,000/mo + HRA + Contingency Grant",
+    docsRequired: ["ST Caste Certificate", "Income Certificate (≤ ₹6.0L)", "Master's Degree Marksheet", "University Ph.D. Enrolment Letter", "Research Proposal"]
+  },
+  {
+    id: "NOS",
+    code: "AZKMI",
+    name: "National Overseas Scholarship Scheme",
+    schemeType: "Central Sector Scheme",
+    benefitType: "In Others / Direct Disbursement",
+    category: "Higher Studies Abroad (QS Top 500 Universities)",
+    description: "Provides financial assistance to selected ST students for pursuing Master's and Ph.D. level courses in top 500 QS-ranked foreign Universities.",
+    maxIncome: 800000,
+    minPercentage: 60,
+    slots: "120 Annual Scholarships",
+    stipendAmount: "US $15,400 / £9,900 per annum + Full Tuition & Return Airfare",
+    docsRequired: ["ST Caste Certificate", "Family Income Certificate (≤ ₹8.0L)", "Unconditional Foreign Offer Letter", "Valid Passport & Visa Proof"]
+  }
+];

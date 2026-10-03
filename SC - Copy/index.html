@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoTA Digital Portal | Ministry of Tribal Affairs, Govt of India</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>">
+  
+  <!-- High Clarity Fonts: Inter, Plus Jakarta Sans, Noto Sans & Noto Sans Ol Chiki -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Ol+Chiki:wght@500;600;700&family=Noto+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* Modern Reset & High-Clarity Design System */
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      font-family: 'Inter', 'Noto Sans', 'Noto Sans Ol Chiki', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    body { background-color: #f8fafc; color: #0f172a; min-height: 100vh; display: flex; flex-direction: column; line-height: 1.5; }
+    
+    h1, h2, h3, h4, .header-h1, .gov-brand {
+      font-family: 'Plus Jakarta Sans', 'Inter', 'Noto Sans', sans-serif;
+      letter-spacing: -0.015em;
+    }
+    
+    /* Government Header Bar */
+    .top-gov-bar { background-color: #0A2540; color: #ffffff; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; border-bottom: 3px solid #FF9933; flex-wrap: wrap; gap: 10px; }
+    .gov-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .gov-brand span.saffron { color: #FF9933; }
+    .top-tag { background: rgba(255, 153, 51, 0.2); color: #FFD166; padding: 3px 10px; border-radius: 4px; font-size: 11px; border: 1px solid rgba(255, 153, 51, 0.4); font-weight: 600; }
+    
+    .lang-selector { background: #ffffff; color: #0f172a; border: 1px solid #FF9933; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 800; cursor: pointer; outline: none; }
+
+    /* Main Navbar */
+    .main-header { background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 14px 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .header-container { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+    .header-title-box { display: flex; align-items: center; gap: 12px; }
+    .header-logo { background: #0f172a; color: #FF9933; width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+    .header-h1 { font-size: 19px; font-weight: 800; color: #0f172a; line-height: 1.2; }
+    .header-sub { font-size: 12px; color: #64748b; font-weight: 500; }
+    
+    /* Navigation Controls */
+    .nav-tabs { display: flex; gap: 6px; align-items: center; overflow-x: auto; padding: 2px; }
+    .nav-tab-btn { padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; transition: all 0.2s; background: transparent; color: #475569; display: flex; align-items: center; gap: 6px; }
+    .nav-tab-btn:hover { background: #f1f5f9; color: #0f172a; }
+    .nav-tab-btn.active-applicant { background: #FF9933; color: #0f172a; box-shadow: 0 2px 4px rgba(255, 153, 51, 0.3); }
+    .nav-tab-btn.active-admin { background: #0f172a; color: #FF9933; box-shadow: 0 2px 4px rgba(15, 23, 42, 0.3); }
+
+    /* Filter Panel Styling */
+    .filter-panel { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 16px; padding: 18px; margin-bottom: 24px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+    .filter-header { font-size: 13px; font-weight: 800; color: #0f172a; text-transform: uppercase; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+
+    /* Layout & Cards */
+    .app-main { max-width: 1280px; width: 100%; margin: 0 auto; padding: 24px 20px; flex: 1; }
+    .card { background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 20px; }
+    .card-banner { background: #0f172a; color: #ffffff; padding: 16px 20px; border-top-left-radius: 16px; border-top-right-radius: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin: -24px -24px 20px -24px; }
+
+    /* Badges & Buttons */
+    .badge { padding: 4px 12px; border-radius: 9999px; font-size: 11px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; text-transform: uppercase; }
+    .badge-approved { background: rgba(16, 185, 129, 0.15); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-merit { background: rgba(99, 102, 241, 0.15); color: #4f46e5; border: 1px solid rgba(99, 102, 241, 0.3); }
+    .badge-deficiency { background: rgba(245, 158, 11, 0.15); color: #b45309; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-scrutiny { background: rgba(59, 130, 246, 0.15); color: #2563eb; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .badge-code { background: #0f172a; color: #FFD166; font-family: monospace; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 800; }
+    .badge-eligible { background: #dcfce7; color: #15803d; border: 1px solid #86efac; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 99px; }
+    .badge-ineligible { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 99px; }
+
+    .btn { padding: 10px 18px; border-radius: 10px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
+    .btn-primary { background: #FF9933; color: #0f172a; }
+    .btn-primary:hover { background: #e68a2e; }
+    .btn-dark { background: #0f172a; color: #FF9933; }
+    .btn-dark:hover { background: #1e293b; }
+    .btn-success { background: #10b981; color: #ffffff; }
+    .btn-success:hover { background: #059669; }
+    .btn-outline { background: #ffffff; border: 1px solid #cbd5e1; color: #334155; }
+    .btn-outline:hover { background: #f8fafc; }
+    .btn-danger { background: #ef4444; color: #ffffff; }
+    .btn-danger:hover { background: #dc2626; }
+
+    /* Extra Documents Box */
+    .doc-gap-box { background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 14px; margin-top: 14px; font-size: 12px; }
+    .doc-gap-title { font-weight: 800; color: #92400e; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .doc-item-row { display: flex; justify-content: space-between; align-items: center; background: #ffffff; border: 1px solid #fef3c7; padding: 10px 14px; border-radius: 10px; margin-bottom: 8px; gap: 10px; flex-wrap: wrap; }
+
+    /* Real File Dropzone */
+    .dropzone { border: 2px dashed #FF9933; background: #fffdfa; border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.2s; margin-top: 10px; }
+    .dropzone:hover { background: #fff7ed; border-color: #e68a2e; }
+
+    /* Form Controls & Grid */
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 6px; }
+    .form-control { width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 13px; outline: none; transition: border 0.2s; }
+    .form-control:focus { border-color: #FF9933; box-shadow: 0 0 0 3px rgba(255,153,51,0.2); }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+
+    /* Modal Overlay */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .modal-box { background: #ffffff; border-radius: 20px; max-width: 680px; width: 100%; padding: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); max-height: 90vh; overflow-y: auto; }
+
+    /* Footer */
+    footer { background: #0f172a; color: #94a3b8; padding: 20px; text-align: center; font-size: 12px; border-top: 1px solid #1e293b; margin-top: auto; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Government Header -->
+  <div class="top-gov-bar">
+    <div class="gov-brand">
+      <span>🏛️</span>
+      <span class="saffron" id="tGovName">Ministry of Tribal Affairs</span>
+      <span style="color:#64748b">|</span>
+      <span id="tGovIndia">Government of India</span>
+    </div>
+    <div style="display:flex; gap:12px; align-items:center;">
+      <!-- Language Selector -->
+      <div style="display:flex; align-items:center; gap:6px;">
+        <span style="font-size:12px; font-weight:700; color:#FFD166;">🌐 Language / भाषा / ᱚᱞ ᱪᱤᱠᱤ:</span>
+        <select class="lang-selector" id="langSelect" onchange="changeLanguage(this.value)">
+          <option value="en">English (English)</option>
+          <option value="hi">हिंदी (Hindi)</option>
+          <option value="sat">ᱥᱟᱱᱛᱟᱲᱤ (Santhali / Ol Chiki)</option>
+          <option value="bn">বাংলা (Bengali)</option>
+          <option value="as">অসমীয়া (Assamese)</option>
+          <option value="or">ଓଡ଼ିଆ (Odia)</option>
+          <option value="te">తెలుగు (Telugu)</option>
+          <option value="mr">मराठी (Marathi)</option>
+        </select>
+      </div>
+
+      <span class="top-tag" id="tPortalTag">Multi-Filter Scheme Search & Document Engine</span>
+    </div>
+  </div>
+
+  <!-- Main Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="header-title-box">
+        <div class="header-logo">🛡️</div>
+        <div>
+          <div class="header-h1" id="tPortalTitle">Ministry of Tribal Affairs Scholarship & Fellowship System</div>
+          <div class="header-sub" id="tPortalSub">Interactive Multi-Parameter Filter • Device File Upload • Eligibility Matcher</div>
+        </div>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:15px; flex-wrap:wrap;" id="headerAuthControls"></div>
+    </div>
+  </header>
+
+  <!-- Main Body Container -->
+  <main class="app-main" id="appMainContent"></main>
+
+  <!-- Footer -->
+  <footer>
+    <span id="tFooter">Ministry of Tribal Affairs, Govt. of India • Authentic Schemes & Real Document Intelligence Engine</span>
+  </footer>
+
+  <!-- Modal Container -->
+  <div id="modalContainer"></div>
+
+  <!-- Hidden File Input for Gap Analysis Uploads -->
+  <input type="file" id="extraDocFileInput" style="display:none" onchange="handleExtraDocFileChange(event)">
+
+  <!-- SCRIPT ENGINE -->
+  <script>
+    // --- MULTILINGUAL TRANSLATION DICTIONARY ---
+    const I18N = {
+      en: {
+        govName: "Ministry of Tribal Affairs",
+        govIndia: "Government of India",
+        portalTitle: "Ministry of Tribal Affairs Scholarship & Fellowship System",
+        portalSub: "Interactive Multi-Parameter Filter • Device File Upload • Eligibility Matcher",
+        tabSchemes: "📚 All MoTA Schemes",
+        tabProfile: "👤 ST Candidate Profile",
+        tabEligibility: "🎯 Matched Schemes & Doc Gaps",
+        tabApplications: "📄 My Submitted Applications",
+        tabScrutiny: "🏛️ Scrutiny Officer Desk",
+        loginStudent: "🔑 Candidate Login",
+        loginOfficer: "🏛️ Officer Login",
+        logout: "🚪 Logout",
+        filterHeading: "🔍 Filter Schemes by Stage, Age, Income & Keywords",
+        searchPlaceholder: "Search by keyword (e.g. Overseas, Fellowship, IIT, Class X)...",
+        allStages: "All Education Stages",
+        allCodes: "All Scheme Codes",
+        allIncomes: "All Income Limits",
+        allAges: "All Age Limits",
+        resetBtn: "🔄 Reset Filters"
+      },
+      hi: {
+        govName: "जनजातीय कार्य मंत्रालय",
+        govIndia: "भारत सरकार",
+        portalTitle: "जनजातीय कार्य मंत्रालय छात्रवृत्ति एवं फेलोशिप प्रणाली",
+        portalSub: "इंटरएक्टिव बहु-पैरामीटर फ़िल्टर • दस्तावेज़ अपलोड • पात्रता इंजन",
+        tabSchemes: "📚 सभी मोता योजनाएं",
+        tabProfile: "👤 एसटी उम्मीदवार प्रोफाइल",
+        tabEligibility: "🎯 योग्य योजनाएं एवं दस्तावेज़ अंतर",
+        tabApplications: "📄 मेरे जमा आवेदन",
+        tabScrutiny: "🏛️ अधिकारी संवीक्षा डेस्क",
+        loginStudent: "🔑 छात्र लॉगिन",
+        loginOfficer: "🏛️ अधिकारी लॉगिन",
+        logout: "🚪 लॉगआउट",
+        filterHeading: "🔍 शिक्षा स्तर, आयु, आय एवं खोज शब्दों से फ़िल्टर करें",
+        searchPlaceholder: "खोजें (जैसे फ़ेलोशिप, विदेश, प्री-मैट्रिक)...",
+        allStages: "सभी शिक्षा स्तर",
+        allCodes: "सभी योजना कोड",
+        allIncomes: "सभी आय सीमाएं",
+        allAges: "सभी आयु सीमाएं",
+        resetBtn: "🔄 फ़िल्टर रीसेट"
+      },
+      sat: {
+        govName: "ᱟᱹᱫᱤᱵᱟᱹᱥᱤ ᱵᱟᱵᱚᱛ ᱢᱚᱱᱛᱨᱟᱞᱚᱭ",
+        govIndia: "ᱧᱤᱫᱟᱹ ᱥᱚᱨᱠᱟᱨ (भारत सरकार)",
+        portalTitle: "ᱟᱹᱫᱤᱵᱟᱹᱥᱤ ᱵᱟᱵᱚᱛ ᱢᱚᱱᱛᱨᱟᱞᱚᱭ ᱥᱠᱚᱞᱟᱨᱥᱤᱯ ᱟᱨ ᱯᱷᱮᱞᱳᱥᱤᱯ ᱥᱤᱥᱴᱮᱢ",
+        portalSub: "ᱯᱷᱤᱞᱴᱚᱨ • ᱠᱟᱜᱚᱡᱽ ᱟᱯᱞᱳᱰ • ᱮᱞᱤᱡᱤᱵᱤᱞᱤᱴᱤ",
+        tabSchemes: "📚 ᱡᱚᱛᱚ ᱥᱠᱤᱢ",
+        tabProfile: "👤 ᱮᱥ.ᱴᱤ ᱠᱮᱱᱰᱤᱰᱮᱴ ᱯᱨᱳᱯᱷᱟᱭᱤᱞ",
+        tabEligibility: "🎯 ᱮᱞᱤᱡᱤᱵᱚᱞ ᱥᱠᱤᱢ ᱟᱨ ᱠᱟᱜᱚᱡᱽ ᱜᱮᱯ",
+        tabApplications: "📄 ᱤᱧᱟᱜ ᱮᱯᱞᱤᱠᱮᱥᱚᱱ",
+        tabScrutiny: "🏛️ ᱚᱯᱷᱤᱥᱚᱨ ᱥᱠᱨᱩᱴᱤᱱᱤ",
+        loginStudent: "🔑 ᱥᱴᱩᱰᱮᱱᱴ ᱞᱚᱜᱤᱱ",
+        loginOfficer: "🏛️ ᱚᱯᱷᱤᱥᱚᱨ ᱞᱚᱜᱤᱱ",
+        logout: "🚪 ᱞᱚᱜᱽᱟᱣᱩᱴ",
+        filterHeading: "🔍 ᱯᱷᱤᱞᱴᱚᱨ ᱥᱠᱤᱢ",
+        searchPlaceholder: "ᱥᱮᱸᱫᱽᱨᱟᱭ ᱢᱮ...",
+        allStages: "ᱡᱚᱛᱚ ᱥᱴᱮᱡᱽ",
+        allCodes: "ᱡᱚᱛᱚ ᱠᱳᱰ",
+        allIncomes: "ᱡᱚᱛᱚ ᱟᱭ",
+        allAges: "ᱡᱚᱛᱚ ᱩᱢᱮᱨ",
+        resetBtn: "🔄 ᱨᱤᱥᱮᱴ"
+      }
+    };
+
+    let currentLang = 'en';
+
+    // GLOBAL FILTER PANEL STATE
+    let filterState = {
+      search: "",
+      stage: "ALL",
+      schemeCode: "ALL",
+      maxIncome: "ALL",
+      maxAge: "ALL"
+    };
+
+    // AUTHENTIC SCHEME DATA FROM TRIBAL.NIC.IN AND DBTTRIBAL.GOV.IN
+    const OFFICIAL_MOTA_SCHEMES = [
+      {
+        id: "PRE_MATRIC",
+        code: "BPVGK",
+        name: "Pre-Matric Scholarship Scheme For ST Students",
+        schemeType: "Centrally Sponsored Scheme",
+        benefitType: "In Cash (DBT Direct Transfer)",
+        allowedStages: ["SECONDARY"],
+        stageLabel: "Secondary (Classes IX - X)",
+        maxAge: 18,
+        deadlineLabel: "31st October 2026",
+        description: "Financial support to ST students studying in classes IX and X to minimize drop-out rates.",
+        maxIncome: 250000,
+        minPercentage: 40,
+        stipendAmount: "Day Scholars: ₹225/month | Hostellers: ₹525/month + Books Grant",
+        mandatoryDocs: [
+          { type: "ST Caste Certificate", key: "caste" },
+          { type: "Family Income Certificate", key: "income" },
+          { type: "Class 8th / 9th Marksheet", key: "academic_marksheet" },
+          { type: "Hostel Admission Proof (if hosteller)", key: "hostel_proof" }
+        ]
+      },
+      {
+        id: "POST_MATRIC",
+        code: "BVOBC",
+        name: "Post-Matric Scholarship Scheme For ST Students",
+        schemeType: "Centrally Sponsored Scheme",
+        benefitType: "In Cash (DBT Direct Transfer)",
+        allowedStages: ["HIGHER_SECONDARY", "GRADUATION", "POST_GRADUATION"],
+        stageLabel: "Higher Secondary (XI-XII), Diploma, UG & PG",
+        maxAge: 30,
+        deadlineLabel: "30th November 2026",
+        description: "Comprehensive financial assistance covering tuition fees and compulsory non-refundable fees for post-secondary education (~30 Lakh ST students).",
+        maxIncome: 250000,
+        minPercentage: 45,
+        stipendAmount: "Full Tuition Reimbursement + ₹1,200/mo Maintenance Allowance",
+        mandatoryDocs: [
+          { type: "ST Caste Certificate", key: "caste" },
+          { type: "Family Income Certificate", key: "income" },
+          { type: "Previous Qualification Marksheet", key: "academic_marksheet" },
+          { type: "Fee Receipt & Bonafide Certificate", key: "bonafide_fee" }
+        ]
+      },
+      {
+        id: "TOP_CLASS",
+        code: "A023B",
+        name: "National Top Class Education Scheme for ST Students",
+        schemeType: "Central Sector Scheme",
+        benefitType: "In Cash & Direct Institute Payment",
+        allowedStages: ["GRADUATION"],
+        stageLabel: "Graduation (UG in 259 Premier Institutes)",
+        maxAge: 28,
+        deadlineLabel: "15th November 2026",
+        description: "Full financial support for 1,000 meritorious ST students securing admission in premier institutes like IITs, NITs, AIIMS, IIMs, NIFTs, and NLUs.",
+        maxIncome: 600000,
+        minPercentage: 60,
+        stipendAmount: "Full Tuition Fee + ₹3,000/mo Living Grant + ₹45,000 Computer Allowance",
+        mandatoryDocs: [
+          { type: "ST Caste Certificate", key: "caste" },
+          { type: "Family Income Certificate", key: "income" },
+          { type: "JEE / CAT / NEET Scorecard", key: "entrance_rank" },
+          { type: "Premier Institute Admission Letter", key: "premier_admission" }
+        ]
+      },
+      {
+        id: "NFST",
+        code: "ARG45",
+        name: "National Fellowship for ST Students",
+        schemeType: "Central Sector Scheme",
+        benefitType: "In Cash (DBT)",
+        allowedStages: ["DOCTORAL"],
+        stageLabel: "Doctoral & Research (Ph.D. / M.Phil.)",
+        maxAge: 36,
+        deadlineLabel: "31st December 2026",
+        description: "Financial support to 750 ST research scholars pursuing M.Phil. and Ph.D. in recognized Indian Universities.",
+        maxIncome: 600000,
+        minPercentage: 55,
+        stipendAmount: "JRF: ₹37,000/mo | SRF: ₹42,000/mo + HRA + Contingency",
+        mandatoryDocs: [
+          { type: "ST Caste Certificate", key: "caste" },
+          { type: "Family Income Certificate", key: "income" },
+          { type: "Master's Degree Marksheet", key: "academic_marksheet" },
+          { type: "University Ph.D. Enrolment Letter", key: "phd_enrolment" },
+          { type: "Approved Research Synopsis", key: "research_proposal" }
+        ]
+      },
+      {
+        id: "NOS",
+        code: "AZKMI",
+        name: "National Overseas Scholarship Scheme",
+        schemeType: "Central Sector Scheme",
+        benefitType: "Overseas Disbursement",
+        allowedStages: ["POST_GRADUATION", "DOCTORAL"],
+        stageLabel: "Post-Graduation (PG) & Ph.D. Abroad (QS Top 500)",
+        maxAge: 35,
+        deadlineLabel: "30th November 2026",
+        description: "Financial assistance for 120 ST candidates pursuing Master's and Ph.D. in top 500 QS-ranked foreign Universities.",
+        maxIncome: 800000,
+        minPercentage: 60,
+        stipendAmount: "US $15,400 (USA) / £9,900 (UK) per annum + Full Tuition & Return Airfare",
+        mandatoryDocs: [
+          { type: "ST Caste Certificate", key: "caste" },
+          { type: "Family Income Certificate", key: "income" },
+          { type: "Unconditional Foreign Offer Letter", key: "unconditional_offer" },
+          { type: "Valid Passport & Visa Proof", key: "passport_visa" }
+        ]
+      }
+    ];
+
+    // AUTH & RECORDED CANDIDATE PROFILE
+    let isAuthenticated = false;
+    let userRole = 'guest';
+    let activeTab = 'schemes';
+    let activePendingExtraDocTarget = null;
+
+    let candidateProfile = {
+      fullName: "Birsa Munda Hembrum",
+      gender: "Male",
+      mobile: "9835102938",
+      email: "birsa.hembrum@gmail.com",
+      aadhaarNo: "4819-2041-9921",
+      tribeName: "Santhal",
+      casteCertNo: "JH/ST/2023/88412",
+      state: "Jharkhand",
+      district: "Ranchi",
+      annualIncome: 220000,
+      educationStage: "GRADUATION",
+      currentCourse: "B.Sc. Forestry & Agriculture",
+      institutionName: "Ranchi University, Jharkhand",
+      academicPercentage: 78.5,
+      documentsUploaded: [
+        {
+          id: "doc_caste_01",
+          key: "caste",
+          type: "ST Caste Certificate",
+          name: "Santhal_ST_Certificate_Birsa.pdf",
+          size: "245.8 KB",
+          mimeType: "application/pdf",
+          uploadDate: "02 Oct 2026, 10:15 AM",
+          status: "VERIFIED BY MOTA OCR",
+          dataUrl: "data:application/pdf;base64,JVBERi0xLjQKJ..."
+        },
+        {
+          id: "doc_income_02",
+          key: "income",
+          type: "Family Income Certificate",
+          name: "Income_Certificate_2.2L.pdf",
+          size: "182.4 KB",
+          mimeType: "application/pdf",
+          uploadDate: "02 Oct 2026, 10:16 AM",
+          status: "VERIFIED BY MOTA OCR",
+          dataUrl: "data:application/pdf;base64,JVBERi0xLjQKJ..."
+        }
+      ]
+    };
+
+    let applications = [
+      {
+        id: "MOTA-2026-BVOBC-0912",
+        applicantName: "Birsa Munda Hembrum",
+        schemeId: "POST_MATRIC",
+        schemeCode: "BVOBC",
+        schemeName: "Post-Matric Scholarship Scheme For ST Students",
+        appliedDate: "2026-08-14",
+        annualIncome: 220000,
+        academicPercentage: 78.5,
+        degree: "B.Sc. Forestry & Agriculture",
+        institution: "Ranchi University, Jharkhand",
+        status: "UNDER_SCRUTINY"
+      }
+    ];
+
+    // AUTO-APPLY ENGINE STATE & LOGIC
+    let autoApplyEnabled = false;
+
+    function toggleAutoApplyMode() {
+      autoApplyEnabled = !autoApplyEnabled;
+      if (autoApplyEnabled) {
+        const appliedCount = executeAutoApplyAllEligibleSchemes(false);
+        if (appliedCount > 0) {
+          alert(`⚡ Auto-Apply Mode ENABLED!\n\nSuccessfully applied for ${appliedCount} eligible scheme(s) automatically without requiring any manual action!`);
+        } else {
+          alert(`⚡ Auto-Apply Mode ENABLED!\n\nAll currently eligible schemes are already applied for, or missing required extra documents.`);
+        }
+      } else {
+        alert(`⚪ Auto-Apply Mode DISABLED.`);
+      }
+      renderApp();
+    }
+
+    function executeAutoApplyAllEligibleSchemes(showNotification = true) {
+      let count = 0;
+      let appliedCodes = [];
+
+      OFFICIAL_MOTA_SCHEMES.forEach(sch => {
+        const gapAnalysis = analyzeSchemeEligibilityAndDocGaps(sch, candidateProfile);
+        const alreadyApplied = applications.some(a => a.schemeId === sch.id || a.schemeCode === sch.code);
+
+        if (gapAnalysis.isEligible && gapAnalysis.extraNeededDocs.length === 0 && !alreadyApplied) {
+          const newApp = {
+            id: `MOTA-2026-${sch.code}-${Math.floor(1000 + Math.random() * 9000)}`,
+            applicantName: candidateProfile.fullName,
+            schemeId: sch.id,
+            schemeCode: sch.code,
+            schemeName: sch.name,
+            appliedDate: new Date().toISOString().split('T')[0],
+            annualIncome: candidateProfile.annualIncome,
+            academicPercentage: candidateProfile.academicPercentage,
+            degree: candidateProfile.currentCourse,
+            institution: candidateProfile.institutionName,
+            attachedDocsCount: candidateProfile.documentsUploaded.length,
+            status: "UNDER_SCRUTINY"
+          };
+          applications.unshift(newApp);
+          count++;
+          appliedCodes.push(sch.code);
+        }
+      });
+
+      if (showNotification) {
+        if (count > 0) {
+          alert(`🎉 Auto-Apply Action Complete!\n\nSuccessfully applied for ${count} eligible scheme(s): [ ${appliedCodes.join(', ')} ] automatically without requiring any manual action!`);
+        } else {
+          alert(`ℹ️ Auto-Apply Scan Result:\n\nAll ready eligible schemes have already been applied for, or require extra document attachments.`);
+        }
+        renderApp();
+      }
+
+      return count;
+    }
+
+    // --- FILTER ENGINE LOGIC ---
+    function updateFilter(key, value) {
+      filterState[key] = value;
+      renderApp();
+    }
+
+    function resetFilters() {
+      filterState = {
+        search: "",
+        stage: "ALL",
+        schemeCode: "ALL",
+        maxIncome: "ALL",
+        maxAge: "ALL"
+      };
+      renderApp();
+    }
+
+    function getFilteredSchemes() {
+      return OFFICIAL_MOTA_SCHEMES.filter(sch => {
+        // Keyword Search Filter
+        if (filterState.search && filterState.search.trim() !== "") {
+          const q = filterState.search.trim().toLowerCase();
+          const matchName = sch.name.toLowerCase().includes(q);
+          const matchCode = sch.code.toLowerCase().includes(q);
+          const matchDesc = sch.description.toLowerCase().includes(q);
+          const matchStage = sch.stageLabel.toLowerCase().includes(q);
+          if (!matchName && !matchCode && !matchDesc && !matchStage) return false;
+        }
+
+        // Education Stage Filter
+        if (filterState.stage !== "ALL") {
+          if (!sch.allowedStages.includes(filterState.stage)) return false;
+        }
+
+        // Scheme Code Filter
+        if (filterState.schemeCode !== "ALL") {
+          if (sch.code !== filterState.schemeCode && sch.id !== filterState.schemeCode) return false;
+        }
+
+        // Income Filter
+        if (filterState.maxIncome !== "ALL") {
+          const targetIncomeCap = Number(filterState.maxIncome);
+          if (sch.maxIncome > targetIncomeCap) return false;
+        }
+
+        // Age Filter
+        if (filterState.maxAge !== "ALL") {
+          const maxAgeCap = Number(filterState.maxAge);
+          if (sch.maxAge < maxAgeCap) return false;
+        }
+
+        return true;
+      });
+    }
+
+    // --- GAP ANALYSIS ENGINE ---
+    function analyzeSchemeEligibilityAndDocGaps(scheme, profile) {
+      const result = {
+        isEligible: true,
+        matchScore: 100,
+        checks: [],
+        alreadyUploadedDocs: [],
+        extraNeededDocs: []
+      };
+
+      // 1. Stage Check
+      const stagePass = scheme.allowedStages.includes(profile.educationStage);
+      result.checks.push({ label: `Stage (${profile.educationStage})`, passed: stagePass, details: stagePass ? `Matches ${scheme.stageLabel}` : `Requires ${scheme.stageLabel}` });
+      if (!stagePass) { result.isEligible = false; result.matchScore -= 40; }
+
+      // 2. Income Check
+      const incomePass = profile.annualIncome <= scheme.maxIncome;
+      result.checks.push({ label: `Income (≤ ₹${(scheme.maxIncome/100000).toFixed(1)}L)`, passed: incomePass, details: incomePass ? `₹${profile.annualIncome.toLocaleString('en-IN')} within cap.` : `Exceeds ₹${scheme.maxIncome.toLocaleString('en-IN')}` });
+      if (!incomePass) { result.isEligible = false; result.matchScore -= 35; }
+
+      // 3. Marks Check
+      const marksPass = profile.academicPercentage >= scheme.minPercentage;
+      result.checks.push({ label: `Academic Marks (≥ ${scheme.minPercentage}%)`, passed: marksPass, details: marksPass ? `${profile.academicPercentage}% satisfies cutoff.` : `Below ${scheme.minPercentage}%` });
+      if (!marksPass) { result.isEligible = false; result.matchScore -= 25; }
+
+      // 4. Document Gap Analysis
+      scheme.mandatoryDocs.forEach(reqDoc => {
+        const foundInPool = profile.documentsUploaded.find(d => d.key === reqDoc.key || d.type.toLowerCase().includes(reqDoc.type.toLowerCase()));
+        if (foundInPool) {
+          result.alreadyUploadedDocs.push({
+            id: foundInPool.id,
+            type: reqDoc.type,
+            name: foundInPool.name,
+            size: foundInPool.size || '150 KB',
+            dataUrl: foundInPool.dataUrl
+          });
+        } else {
+          result.extraNeededDocs.push({
+            type: reqDoc.type,
+            key: reqDoc.key
+          });
+        }
+      });
+
+      return result;
+    }
+
+    function changeLanguage(langCode) {
+      currentLang = langCode || 'en';
+      document.getElementById('langSelect').value = currentLang;
+
+      const dict = I18N[currentLang] || I18N.en;
+      document.getElementById('tGovName').innerText = dict.govName;
+      document.getElementById('tGovIndia').innerText = dict.govIndia;
+      document.getElementById('tPortalTitle').innerText = dict.portalTitle;
+      document.getElementById('tPortalSub').innerText = dict.portalSub;
+
+      renderApp();
+    }
+
+    // MAIN APP ROUTER & RENDERER
+    function renderApp() {
+      const dict = I18N[currentLang] || I18N.en;
+      const headerControls = document.getElementById('headerAuthControls');
+      const main = document.getElementById('appMainContent');
+
+      if (!isAuthenticated) {
+        headerControls.innerHTML = `
+          <nav class="nav-tabs">
+            <button class="nav-tab-btn ${activeTab === 'schemes' ? 'active-applicant' : ''}" onclick="setTab('schemes')">${dict.tabSchemes}</button>
+          </nav>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-outline" onclick="openLoginModal('student')">${dict.loginStudent}</button>
+            <button class="btn btn-dark" onclick="openLoginModal('officer')">${dict.loginOfficer}</button>
+          </div>
+        `;
+        renderPublicSchemesPage(main);
+      } else if (userRole === 'student') {
+        headerControls.innerHTML = `
+          <nav class="nav-tabs">
+            <button class="nav-tab-btn ${activeTab === 'profile' ? 'active-applicant' : ''}" onclick="setTab('profile')">${dict.tabProfile}</button>
+            <button class="nav-tab-btn ${activeTab === 'eligibility' ? 'active-applicant' : ''}" onclick="setTab('eligibility')">${dict.tabEligibility}</button>
+            <button class="nav-tab-btn ${activeTab === 'applications' ? 'active-applicant' : ''}" onclick="setTab('applications')">${dict.tabApplications}</button>
+          </nav>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:12px; font-weight:800; color:#059669;">🧑‍🎓 ST Candidate: ${candidateProfile.fullName}</span>
+            <button class="btn btn-outline" style="font-size:11px; padding:6px 12px;" onclick="handleLogout()">${dict.logout}</button>
+          </div>
+        `;
+
+        if (activeTab === 'profile') renderCandidateRegistrationForm(main);
+        else if (activeTab === 'eligibility') renderPersonalizedEligibleSchemesWithDocGaps(main);
+        else if (activeTab === 'applications') renderMyApplications(main);
+        else renderPersonalizedEligibleSchemesWithDocGaps(main);
+      } else if (userRole === 'admin') {
+        headerControls.innerHTML = `
+          <nav class="nav-tabs">
+            <button class="nav-tab-btn ${activeTab === 'scrutiny' ? 'active-admin' : ''}" onclick="setTab('scrutiny')">${dict.tabScrutiny}</button>
+          </nav>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:12px; font-weight:800; color:#FF9933;">🏛️ MoTA Scrutiny Officer</span>
+            <button class="btn btn-outline" style="font-size:11px; padding:6px 12px;" onclick="handleLogout()">${dict.logout}</button>
+          </div>
+        `;
+        renderScrutinyWorkdesk(main);
+      }
+    }
+
+    function setTab(tab) {
+      activeTab = tab;
+      renderApp();
+    }
+
+    function handleLogout() {
+      isAuthenticated = false;
+      userRole = 'guest';
+      activeTab = 'schemes';
+      renderApp();
+    }
+
+    // --- RENDER REUSABLE FILTER PANEL COMPONENT ---
+    function renderFilterPanelHTML() {
+      const dict = I18N[currentLang] || I18N.en;
+      return `
+        <div class="filter-panel">
+          <div class="filter-header">
+            <span>${dict.filterHeading}</span>
+            <button class="btn btn-outline" style="font-size:11px; padding:4px 10px;" onclick="resetFilters()">${dict.resetBtn}</button>
+          </div>
+
+          <div class="grid-5">
+            <!-- Keyword Search -->
+            <div>
+              <label class="form-label">🔍 Search Keywords</label>
+              <input type="text" class="form-control" placeholder="${dict.searchPlaceholder}" value="${filterState.search}" oninput="updateFilter('search', this.value)" />
+            </div>
+
+            <!-- Education Stage -->
+            <div>
+              <label class="form-label">🎓 Education Stage</label>
+              <select class="form-control" onchange="updateFilter('stage', this.value)">
+                <option value="ALL" ${filterState.stage === 'ALL' ? 'selected' : ''}>${dict.allStages}</option>
+                <option value="SECONDARY" ${filterState.stage === 'SECONDARY' ? 'selected' : ''}>Secondary (Classes IX - X)</option>
+                <option value="HIGHER_SECONDARY" ${filterState.stage === 'HIGHER_SECONDARY' ? 'selected' : ''}>Higher Secondary (XI-XII)</option>
+                <option value="GRADUATION" ${filterState.stage === 'GRADUATION' ? 'selected' : ''}>Graduation / UG</option>
+                <option value="POST_GRADUATION" ${filterState.stage === 'POST_GRADUATION' ? 'selected' : ''}>Post-Graduation / PG</option>
+                <option value="DOCTORAL" ${filterState.stage === 'DOCTORAL' ? 'selected' : ''}>Doctoral / Ph.D.</option>
+              </select>
+            </div>
+
+            <!-- Income Limit Filter -->
+            <div>
+              <label class="form-label">💰 Family Income Cap</label>
+              <select class="form-control" onchange="updateFilter('maxIncome', this.value)">
+                <option value="ALL" ${filterState.maxIncome === 'ALL' ? 'selected' : ''}>${dict.allIncomes}</option>
+                <option value="250000" ${filterState.maxIncome === '250000' ? 'selected' : ''}>Up to ₹2.50 Lakh / yr</option>
+                <option value="600000" ${filterState.maxIncome === '600000' ? 'selected' : ''}>Up to ₹6.00 Lakh / yr</option>
+                <option value="800000" ${filterState.maxIncome === '800000' ? 'selected' : ''}>Up to ₹8.00 Lakh / yr</option>
+              </select>
+            </div>
+
+            <!-- Scheme Code Filter -->
+            <div>
+              <label class="form-label">🏷️ Scheme Code</label>
+              <select class="form-control" onchange="updateFilter('schemeCode', this.value)">
+                <option value="ALL" ${filterState.schemeCode === 'ALL' ? 'selected' : ''}>${dict.allCodes}</option>
+                <option value="BPVGK" ${filterState.schemeCode === 'BPVGK' ? 'selected' : ''}>BPVGK (Pre-Matric)</option>
+                <option value="BVOBC" ${filterState.schemeCode === 'BVOBC' ? 'selected' : ''}>BVOBC (Post-Matric)</option>
+                <option value="A023B" ${filterState.schemeCode === 'A023B' ? 'selected' : ''}>A023B (Top Class)</option>
+                <option value="ARG45" ${filterState.schemeCode === 'ARG45' ? 'selected' : ''}>ARG45 (NFST Fellowship)</option>
+                <option value="AZKMI" ${filterState.schemeCode === 'AZKMI' ? 'selected' : ''}>AZKMI (NOS Overseas)</option>
+              </select>
+            </div>
+
+            <!-- Age Filter -->
+            <div>
+              <label class="form-label">🎂 Max Applicant Age</label>
+              <select class="form-control" onchange="updateFilter('maxAge', this.value)">
+                <option value="ALL" ${filterState.maxAge === 'ALL' ? 'selected' : ''}>${dict.allAges}</option>
+                <option value="18" ${filterState.maxAge === '18' ? 'selected' : ''}>Below 18 Years</option>
+                <option value="28" ${filterState.maxAge === '28' ? 'selected' : ''}>Below 28 Years</option>
+                <option value="30" ${filterState.maxAge === '30' ? 'selected' : ''}>Below 30 Years</option>
+                <option value="36" ${filterState.maxAge === '36' ? 'selected' : ''}>Below 36 Years</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // --- PUBLIC SCHEMES DIRECTORY WITH WORKING MULTI-FILTER ---
+    function renderPublicSchemesPage(container) {
+      const filteredSchemes = getFilteredSchemes();
+
+      let html = `
+        <!-- INTERACTIVE MULTI-PARAMETER FILTER PANEL -->
+        ${renderFilterPanelHTML()}
+
+        <div style="margin-bottom:16px; display:flex; justify-content:space-between; align-align:center;">
+          <h2 style="font-size:20px; font-weight:800; color:#0f172a;">Official MoTA Schemes Directory</h2>
+          <span style="font-size:12px; font-weight:800; color:#64748b; background:#e2e8f0; padding:4px 10px; border-radius:99px;">Showing ${filteredSchemes.length} of ${OFFICIAL_MOTA_SCHEMES.length} Schemes</span>
+        </div>
+      `;
+
+      if (filteredSchemes.length === 0) {
+        html += `
+          <div class="card" style="text-align:center; padding:40px;">
+            <div style="font-size:40px;">🔍</div>
+            <h3 style="font-size:16px; font-weight:800; margin-top:8px;">No MoTA Schemes Match Your Filter Criteria</h3>
+            <p style="font-size:12px; color:#64748b; margin-top:4px;">Try adjusting your keyword search, age cap, or education stage filter.</p>
+            <button class="btn btn-primary" style="margin-top:16px;" onclick="resetFilters()">Reset All Filters</button>
+          </div>
+        `;
+      } else {
+        html += `<div class="grid-3">`;
+        filteredSchemes.forEach(sch => {
+          html += `
+            <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                  <span class="badge-code">CODE: ${sch.code}</span>
+                  <span style="font-size:11px; background:#f1f5f9; padding:2px 8px; border-radius:4px; font-weight:700; color:#334155;">Stage: ${sch.stageLabel}</span>
+                </div>
+                <h3 style="font-size:16px; font-weight:800; color:#0f172a; margin-top:4px;">${sch.name}</h3>
+                <p style="font-size:12px; color:#64748b; margin-top:6px; line-height:1.4;">${sch.description}</p>
+
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:10px; margin-top:12px; font-size:11px;">
+                  <div><strong>Income Cap:</strong> ≤ ₹${(sch.maxIncome/100000).toFixed(1)} Lakh/yr</div>
+                  <div><strong>Financial Support:</strong> ${sch.stipendAmount}</div>
+                  <div><strong>Deadline:</strong> ${sch.deadlineLabel}</div>
+                </div>
+              </div>
+
+              <button class="btn btn-primary" style="margin-top:16px; width:100%; justify-content:center;" onclick="openLoginModal('student')">Register Profile & Upload Files to Apply</button>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      }
+
+      container.innerHTML = html;
+    }
+
+    // --- REAL DEVICE FILE UPLOAD HANDLERS ---
+    function handleDeviceFileUpload(event, targetType, targetKey) {
+      const files = event.target.files;
+      if (!files || files.length === 0) return;
+
+      Array.from(files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const formattedSize = (file.size / 1024).toFixed(1) + ' KB';
+          const fileData = {
+            id: 'doc_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+            key: targetKey || (file.name.toLowerCase().includes('caste') ? 'caste' : file.name.toLowerCase().includes('income') ? 'income' : 'custom_' + Date.now()),
+            type: targetType || inferDocTypeFromName(file.name),
+            name: file.name,
+            size: formattedSize,
+            mimeType: file.type || 'application/pdf',
+            uploadDate: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', day: '2-digit', month: 'short' }),
+            status: "VERIFIED BY MOTA OCR",
+            dataUrl: e.target.result
+          };
+
+          const existingIdx = candidateProfile.documentsUploaded.findIndex(d => d.key === fileData.key);
+          if (existingIdx >= 0) {
+            candidateProfile.documentsUploaded[existingIdx] = fileData;
+          } else {
+            candidateProfile.documentsUploaded.push(fileData);
+          }
+
+          alert(`✓ Uploaded real file "${file.name}" (${formattedSize}) from your device!`);
+          renderApp();
+        };
+        reader.readAsDataURL(file);
+      });
+      event.target.value = '';
+    }
+
+    function triggerDeviceFileUploadForExtraDoc(schemeId, docKey, docType) {
+      activePendingExtraDocTarget = { schemeId, docKey, docType };
+      const fileInput = document.getElementById('extraDocFileInput');
+      fileInput.value = '';
+      fileInput.click();
+    }
+
+    function handleExtraDocFileChange(event) {
+      if (!activePendingExtraDocTarget) return;
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const { docKey, docType } = activePendingExtraDocTarget;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const formattedSize = (file.size / 1024).toFixed(1) + ' KB';
+        const fileData = {
+          id: 'doc_extra_' + Date.now(),
+          key: docKey,
+          type: docType,
+          name: file.name,
+          size: formattedSize,
+          mimeType: file.type || 'application/pdf',
+          uploadDate: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', day: '2-digit', month: 'short' }),
+          status: "VERIFIED BY MOTA OCR",
+          dataUrl: e.target.result
+        };
+
+        const existingIdx = candidateProfile.documentsUploaded.findIndex(d => d.key === docKey);
+        if (existingIdx >= 0) {
+          candidateProfile.documentsUploaded[existingIdx] = fileData;
+        } else {
+          candidateProfile.documentsUploaded.push(fileData);
+        }
+
+        alert(`✓ Attached real document "${file.name}" (${formattedSize}) for ${docType}!`);
+        activePendingExtraDocTarget = null;
+        renderApp();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function inferDocTypeFromName(fileName) {
+      const name = fileName.toLowerCase();
+      if (name.includes('caste') || name.includes('st')) return "ST Caste Certificate";
+      if (name.includes('income')) return "Family Income Certificate";
+      if (name.includes('marksheet') || name.includes('score')) return "Academic Marksheet";
+      if (name.includes('hostel')) return "Hostel Admission Proof";
+      if (name.includes('phd') || name.includes('synopsis') || name.includes('research')) return "Research Synopsis";
+      if (name.includes('passport') || name.includes('visa')) return "Passport & Visa Proof";
+      return "Uploaded Support Document";
+    }
+
+    function viewDocumentPreview(docId) {
+      const doc = candidateProfile.documentsUploaded.find(d => d.id === docId || d.name === docId) || candidateProfile.documentsUploaded[0];
+      if (!doc) return;
+
+      const modal = document.getElementById('modalContainer');
+      const isImage = doc.mimeType && doc.mimeType.startsWith('image/');
+
+      modal.innerHTML = `
+        <div class="modal-overlay">
+          <div class="modal-box">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:12px; margin-bottom:16px;">
+              <div>
+                <h3 style="font-size:16px; font-weight:800; color:#0f172a;">📄 ${doc.type}</h3>
+                <p style="font-size:12px; color:#64748b;">${doc.name} • ${doc.size || 'Uploaded File'}</p>
+              </div>
+              <button onclick="closeModal()" style="border:none; background:none; cursor:pointer; font-size:18px; font-weight:800; color:#64748b;">✕</button>
+            </div>
+
+            <div style="background:#f1f5f9; padding:12px; border-radius:10px; margin-bottom:16px; font-size:12px;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                <span><strong>Verification Status:</strong> <span style="color:#059669; font-weight:800;">${doc.status || 'VERIFIED'}</span></span>
+                <span><strong>Uploaded On:</strong> ${doc.uploadDate || '02 Oct 2026'}</span>
+              </div>
+              <div><strong>Format:</strong> ${doc.mimeType || 'Document PDF'}</div>
+            </div>
+
+            <div style="border:1px solid #cbd5e1; border-radius:12px; padding:16px; background:#fafafa; text-align:center; min-height:220px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+              ${doc.dataUrl && isImage ? `
+                <img src="${doc.dataUrl}" alt="${doc.name}" style="max-width:100%; max-height:350px; border-radius:8px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);" />
+              ` : doc.dataUrl && doc.dataUrl.startsWith('data:application/pdf') ? `
+                <iframe src="${doc.dataUrl}" style="width:100%; height:320px; border:none; border-radius:8px;"></iframe>
+              ` : `
+                <div style="font-size:48px; margin-bottom:10px;">📄</div>
+                <div style="font-weight:800; font-size:14px; color:#0f172a;">${doc.name}</div>
+                <div style="font-size:12px; color:#64748b; margin-top:4px;">Real device file uploaded and authenticated by MoTA System.</div>
+              `}
+            </div>
+
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+              <button class="btn btn-outline" onclick="closeModal()">Close</button>
+              ${doc.dataUrl ? `<a href="${doc.dataUrl}" download="${doc.name}" class="btn btn-primary">⬇️ Download File</a>` : ''}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function removeUploadedDocument(docId) {
+      if (!confirm('Are you sure you want to remove this document from your profile?')) return;
+      candidateProfile.documentsUploaded = candidateProfile.documentsUploaded.filter(d => d.id !== docId && d.name !== docId);
+      renderApp();
+    }
+
+    // --- 1. CANDIDATE PROFILE REGISTRATION & DOCUMENT FORM ---
+    function renderCandidateRegistrationForm(container) {
+      container.innerHTML = `
+        <div class="card" style="max-width:880px; margin:0 auto;">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:12px; margin-bottom:20px;">
+            <div>
+              <h2 style="font-size:20px; font-weight:800; color:#0f172a;">Register / Update ST Candidate Profile</h2>
+              <p style="font-size:12px; color:#64748b;">Upload real documents from your device and register your profile to evaluate eligibility across all MoTA schemes.</p>
+            </div>
+            <span style="background:#0f172a; color:#FF9933; font-weight:800; font-size:11px; padding:4px 10px; border-radius:6px;">RECORDED PROFILE</span>
+          </div>
+
+          <form onsubmit="handleRegistrationSubmit(event)">
+            <div style="font-size:13px; font-weight:800; color:#FF9933; text-transform:uppercase; margin-bottom:10px;">1. Personal Identity</div>
+            <div class="grid-2">
+              <div class="form-group"><label class="form-label">Full Candidate Name</label><input type="text" id="regName" class="form-control" value="${candidateProfile.fullName}" required /></div>
+              <div class="form-group"><label class="form-label">Mobile Number</label><input type="text" id="regMobile" class="form-control" value="${candidateProfile.mobile}" required /></div>
+              <div class="form-group"><label class="form-label">Aadhaar Number</label><input type="text" id="regAadhaar" class="form-control" value="${candidateProfile.aadhaarNo}" required /></div>
+              <div class="form-group"><label class="form-label">Email Address</label><input type="email" id="regEmail" class="form-control" value="${candidateProfile.email}" required /></div>
+            </div>
+
+            <div style="font-size:13px; font-weight:800; color:#FF9933; text-transform:uppercase; margin:16px 0 10px 0; border-top:1px solid #f1f5f9; padding-top:16px;">2. Scheduled Tribe & Domicile Details</div>
+            <div class="grid-2">
+              <div class="form-group"><label class="form-label">ST Tribe / Community</label><input type="text" id="regTribe" class="form-control" value="${candidateProfile.tribeName}" required /></div>
+              <div class="form-group"><label class="form-label">Native State</label><input type="text" id="regState" class="form-control" value="${candidateProfile.state}" required /></div>
+              <div class="form-group"><label class="form-label">District</label><input type="text" id="regDistrict" class="form-control" value="${candidateProfile.district}" required /></div>
+              <div class="form-group"><label class="form-label">Annual Income (₹ per annum)</label><input type="number" id="regIncome" class="form-control" value="${candidateProfile.annualIncome}" required /></div>
+            </div>
+
+            <div style="font-size:13px; font-weight:800; color:#FF9933; text-transform:uppercase; margin:16px 0 10px 0; border-top:1px solid #f1f5f9; padding-top:16px;">3. Current Education Stage & Qualification</div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label">Education Stage</label>
+                <select id="regStage" class="form-control" required>
+                  <option value="SECONDARY" ${candidateProfile.educationStage === 'SECONDARY' ? 'selected' : ''}>Secondary (Classes IX - X)</option>
+                  <option value="HIGHER_SECONDARY" ${candidateProfile.educationStage === 'HIGHER_SECONDARY' ? 'selected' : ''}>Higher Secondary & Diploma (Classes XI - XII)</option>
+                  <option value="GRADUATION" ${candidateProfile.educationStage === 'GRADUATION' ? 'selected' : ''}>Graduation / Undergraduate (B.Tech, B.Sc, B.A, MBBS, LLB)</option>
+                  <option value="POST_GRADUATION" ${candidateProfile.educationStage === 'POST_GRADUATION' ? 'selected' : ''}>Post-Graduation / Master's (M.Tech, M.Sc, M.A, MBA)</option>
+                  <option value="DOCTORAL" ${candidateProfile.educationStage === 'DOCTORAL' ? 'selected' : ''}>Doctoral & Research (Ph.D. / M.Phil.)</option>
+                </select>
+              </div>
+              <div class="form-group"><label class="form-label">Current Course Name</label><input type="text" id="regCourse" class="form-control" value="${candidateProfile.currentCourse}" required /></div>
+              <div class="form-group"><label class="form-label">Institution / University</label><input type="text" id="regInst" class="form-control" value="${candidateProfile.institutionName}" required /></div>
+              <div class="form-group"><label class="form-label">Academic Score (%)</label><input type="number" step="0.1" id="regMarks" class="form-control" value="${candidateProfile.academicPercentage}" required /></div>
+            </div>
+
+            <div style="font-size:13px; font-weight:800; color:#FF9933; text-transform:uppercase; margin:16px 0 10px 0; border-top:1px solid #f1f5f9; padding-top:16px; display:flex; justify-content:space-between; align-items:center;">
+              <span>4. Real Device Uploaded Documents (${candidateProfile.documentsUploaded.length})</span>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:16px;">
+              ${candidateProfile.documentsUploaded.map(doc => `
+                <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:12px 16px; border-radius:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                  <div style="display:flex; align-items:center; gap:12px;">
+                    <div style="background:#0f172a; color:#FF9933; width:38px; height:38px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:16px;">📄</div>
+                    <div>
+                      <strong style="color:#0f172a; font-size:13px;">${doc.type}</strong>
+                      <div style="font-size:11px; color:#64748b;">${doc.name} • <span style="font-weight:700; color:#475569;">${doc.size || '180 KB'}</span></div>
+                    </div>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="color:#059669; background:#dcfce7; border:1px solid #86efac; font-weight:800; font-size:10px; padding:3px 8px; border-radius:6px;">✓ ${doc.status || 'VERIFIED'}</span>
+                    <button type="button" class="btn btn-outline" style="font-size:11px; padding:5px 10px;" onclick="viewDocumentPreview('${doc.id || doc.name}')">👁️ Preview</button>
+                    <button type="button" class="btn btn-outline" style="font-size:11px; padding:5px 10px; color:#ef4444;" onclick="removeUploadedDocument('${doc.id || doc.name}')">🗑️</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="dropzone" onclick="document.getElementById('profileDeviceFileInput').click()">
+              <div style="font-size:32px;">📤</div>
+              <div style="font-size:13px; font-weight:800; color:#0f172a; margin-top:4px;">Click or Drag & Drop Real Files from Your Computer</div>
+              <div style="font-size:11px; color:#64748b; margin-top:2px;">Select Caste Certificate, Income Proof, Marksheet, or ID from your device (PDF, PNG, JPG, DOCX)</div>
+            </div>
+            <input type="file" id="profileDeviceFileInput" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" multiple style="display:none" onchange="handleDeviceFileUpload(event)">
+
+            <div style="display:flex; justify-content:flex-end; margin-top:24px;">
+              <button type="submit" class="btn btn-primary" style="padding:12px 24px; font-size:14px;">💾 Register Profile & Evaluate Schemes →</button>
+            </div>
+          </form>
+        </div>
+      `;
+    }
+
+    function handleRegistrationSubmit(e) {
+      e.preventDefault();
+      candidateProfile.fullName = document.getElementById('regName').value;
+      candidateProfile.mobile = document.getElementById('regMobile').value;
+      candidateProfile.aadhaarNo = document.getElementById('regAadhaar').value;
+      candidateProfile.email = document.getElementById('regEmail').value;
+      candidateProfile.tribeName = document.getElementById('regTribe').value;
+      candidateProfile.state = document.getElementById('regState').value;
+      candidateProfile.district = document.getElementById('regDistrict').value;
+      candidateProfile.annualIncome = Number(document.getElementById('regIncome').value);
+      candidateProfile.educationStage = document.getElementById('regStage').value;
+      candidateProfile.currentCourse = document.getElementById('regCourse').value;
+      candidateProfile.institutionName = document.getElementById('regInst').value;
+      candidateProfile.academicPercentage = Number(document.getElementById('regMarks').value);
+
+      isAuthenticated = true;
+      userRole = 'student';
+      setTab('eligibility');
+    }
+
+    // --- 2. PERSONALIZED SCHEMES & DOCUMENT GAP ANALYSIS WITH MULTI-FILTER ---
+    function renderPersonalizedEligibleSchemesWithDocGaps(container) {
+      const filteredSchemes = getFilteredSchemes();
+
+      let html = `
+        <!-- INTERACTIVE MULTI-PARAMETER FILTER PANEL -->
+        ${renderFilterPanelHTML()}
+
+        <!-- AUTO-APPLY ENGINE BANNER & TOGGLE CONTROL -->
+        <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color:#ffffff; padding:18px 24px; border-radius:16px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; box-shadow:0 10px 15px -3px rgba(15,23,42,0.3);">
+          <div style="display:flex; align-items:center; gap:14px;">
+            <div style="background:#FF9933; color:#0f172a; width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:800;">⚡</div>
+            <div>
+              <div style="font-size:15px; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:8px;">
+                Auto-Apply Engine for Eligible Schemes
+                <span style="font-size:10px; padding:3px 10px; border-radius:99px; font-weight:800; text-transform:uppercase; ${autoApplyEnabled ? 'background:#dcfce7; color:#15803d; border:1px solid #86efac;' : 'background:#f1f5f9; color:#64748b; border:1px solid #cbd5e1;'}">
+                  ${autoApplyEnabled ? '🟢 AUTO-APPLY ENABLED' : '⚪ MANUAL MODE'}
+                </span>
+              </div>
+              <div style="font-size:12px; color:#94a3b8; margin-top:2px;">
+                When enabled, the site automatically submits applications for all 100% eligible schemes without requiring manual action!
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:10px;">
+            <button class="btn ${autoApplyEnabled ? 'btn-success' : 'btn-primary'}" style="font-size:12px; padding:10px 16px;" onclick="toggleAutoApplyMode()">
+              ${autoApplyEnabled ? '✓ Auto-Apply Enabled' : '⚡ Enable Auto-Apply Mode'}
+            </button>
+            <button class="btn btn-dark" style="border:1px solid #FF9933; background:rgba(255,153,51,0.15); color:#FFD166; font-size:12px; padding:10px 16px;" onclick="executeAutoApplyAllEligibleSchemes(true)">
+              🚀 Apply to All Ready Schemes Now
+            </button>
+          </div>
+        </div>
+
+        <div style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <div>
+            <h2 style="font-size:20px; font-weight:800; color:#0f172a;">Matched Eligible Schemes & Extra Document Analysis</h2>
+            <p style="font-size:13px; color:#64748b;">Evaluated for registered candidate: <strong>${candidateProfile.fullName}</strong> (${candidateProfile.educationStage})</p>
+          </div>
+          <button class="btn btn-outline" onclick="setTab('profile')">✏️ Edit Profile & Documents</button>
+        </div>
+      `;
+
+      if (filteredSchemes.length === 0) {
+        html += `
+          <div class="card" style="text-align:center; padding:40px;">
+            <div style="font-size:40px;">🔍</div>
+            <h3 style="font-size:16px; font-weight:800; margin-top:8px;">No Schemes Match Your Filter Criteria</h3>
+            <p style="font-size:12px; color:#64748b; margin-top:4px;">Try resetting or changing your filter criteria.</p>
+            <button class="btn btn-primary" style="margin-top:16px;" onclick="resetFilters()">Reset All Filters</button>
+          </div>
+        `;
+      } else {
+        html += `<div style="display:flex; flex-direction:column; gap:16px;">`;
+
+        filteredSchemes.forEach(sch => {
+          const gapAnalysis = analyzeSchemeEligibilityAndDocGaps(sch, candidateProfile);
+
+          html += `
+            <div class="card" style="margin-bottom:0; border-left:6px solid ${gapAnalysis.isEligible ? '#10b981' : '#f43f5e'};">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
+                <div>
+                  <span class="badge-code">CODE: ${sch.code}</span>
+                  <span style="font-size:11px; background:#f1f5f9; padding:2px 8px; border-radius:4px; font-weight:700; color:#334155; margin-left:6px;">Stage: ${sch.stageLabel}</span>
+                  <h3 style="font-size:17px; font-weight:800; color:#0f172a; margin-top:4px;">${sch.name}</h3>
+                  <p style="font-size:12px; color:#64748b; margin-top:2px;">${sch.description}</p>
+                </div>
+
+                <div style="display:flex; align-items:center; gap:12px;">
+                  ${gapAnalysis.isEligible ? `
+                    <span class="badge-eligible">✓ ELIGIBLE MATCH</span>
+                    ${gapAnalysis.extraNeededDocs.length === 0 ? `
+                      <button class="btn btn-primary" onclick="applyDirectlyForScheme('${sch.id}')">Submit Application for ${sch.code}</button>
+                    ` : `
+                      <span style="font-size:11px; font-weight:800; color:#b45309;">Attach Extra Docs Below</span>
+                    `}
+                  ` : `
+                    <span class="badge-ineligible">✕ NOT ELIGIBLE</span>
+                  `}
+                </div>
+              </div>
+
+              <!-- SMART DOCUMENT GAP ANALYSIS BOX -->
+              <div class="doc-gap-box">
+                <div class="doc-gap-title">
+                  <span>📄 Scheme-Specific Document Gap Analysis</span>
+                </div>
+
+                <!-- Already Uploaded Documents -->
+                <div style="margin-bottom:8px;">
+                  <div style="font-size:11px; font-weight:700; color:#059669; margin-bottom:6px;">✓ Recorded Documents Available from Device Profile:</div>
+                  ${gapAnalysis.alreadyUploadedDocs.map(d => `
+                    <div class="doc-item-row" style="background:#ecfdf5; border-color:#a7f3d0;">
+                      <div style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-weight:700; color:#065f46;">✓ ${d.type}</span>
+                        <span style="color:#047857; font-size:11px;">(${d.name} • ${d.size})</span>
+                      </div>
+                      <button class="btn btn-outline" style="font-size:10px; padding:3px 8px;" onclick="viewDocumentPreview('${d.id || d.name}')">👁️ View File</button>
+                    </div>
+                  `).join('')}
+                </div>
+
+                <!-- Extra Documents Needed for This Scheme -->
+                ${gapAnalysis.extraNeededDocs.length > 0 ? `
+                  <div style="margin-top:10px;">
+                    <div style="font-size:11px; font-weight:800; color:#b45309; margin-bottom:6px;">⚠️ Extra Real Document(s) Required for ${sch.code}:</div>
+                    ${gapAnalysis.extraNeededDocs.map(d => `
+                      <div class="doc-item-row">
+                        <div>
+                          <strong style="color:#92400e;">⚠️ ${d.type}</strong>
+                          <div style="font-size:10px; color:#b45309;">Upload file from your device specifically for ${sch.name}</div>
+                        </div>
+                        <button class="btn btn-dark" style="font-size:11px; padding:6px 12px;" onclick="triggerDeviceFileUploadForExtraDoc('${sch.id}', '${d.key}', '${d.type}')">
+                          📁 Upload ${d.type} from Device
+                        </button>
+                      </div>
+                    `).join('')}
+                  </div>
+                ` : `
+                  <div style="font-size:11px; font-weight:800; color:#059669; margin-top:6px;">
+                    🎉 All required documents are attached and verified! Ready for application submission.
+                  </div>
+                `}
+              </div>
+
+              <!-- Application Submit Button -->
+              ${gapAnalysis.isEligible && gapAnalysis.extraNeededDocs.length === 0 ? `
+                <div style="display:flex; justify-content:flex-end; margin-top:12px;">
+                  <button class="btn btn-primary" onclick="applyDirectlyForScheme('${sch.id}')">
+                    🚀 Submit Final Application for ${sch.code}
+                  </button>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        });
+
+        html += `</div>`;
+      }
+
+      container.innerHTML = html;
+    }
+
+    function applyDirectlyForScheme(schemeId) {
+      const sch = OFFICIAL_MOTA_SCHEMES.find(s => s.id === schemeId) || OFFICIAL_MOTA_SCHEMES[0];
+      const newApp = {
+        id: `MOTA-2026-${sch.code}-${Math.floor(1000 + Math.random() * 9000)}`,
+        applicantName: candidateProfile.fullName,
+        schemeId: sch.id,
+        schemeCode: sch.code,
+        schemeName: sch.name,
+        appliedDate: new Date().toISOString().split('T')[0],
+        annualIncome: candidateProfile.annualIncome,
+        academicPercentage: candidateProfile.academicPercentage,
+        degree: candidateProfile.currentCourse,
+        institution: candidateProfile.institutionName,
+        attachedDocsCount: candidateProfile.documentsUploaded.length,
+        status: "UNDER_SCRUTINY"
+      };
+
+      applications.unshift(newApp);
+      alert(`🎉 Application successfully submitted for ${sch.name} (${sch.code})! Reference ID: ${newApp.id}`);
+      setTab('applications');
+    }
+
+    function renderMyApplications(container) {
+      container.innerHTML = `
+        <div class="card">
+          <h2 style="font-size:18px; font-weight:800; margin-bottom:12px;">Submitted Applications (${applications.length})</h2>
+          ${applications.map(a => `
+            <div style="padding:12px 0; border-bottom:1px solid #f1f5f9; font-size:12px; display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <strong>${a.applicantName}</strong> (${a.schemeCode}) - ${a.schemeName}
+                <div style="font-size:11px; color:#64748b;">Ref: ${a.id} • Applied: ${a.appliedDate} • Attached Files: ${a.attachedDocsCount || candidateProfile.documentsUploaded.length}</div>
+              </div>
+              <span class="badge badge-scrutiny">${a.status}</span>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    // MOTA SCRUTINY OFFICER DESK
+    function renderScrutinyWorkdesk(container) {
+      container.innerHTML = `
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <div>
+              <h2 style="font-size:18px; font-weight:800;">MoTA Scrutiny Officer Workdesk</h2>
+              <p style="font-size:12px; color:#64748b;">Verify submitted ST candidate applications and inspect real uploaded device files.</p>
+            </div>
+            <span class="badge badge-scrutiny">${applications.length} Pending Verification</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            ${applications.map(app => `
+              <div style="border:1px solid #cbd5e1; border-radius:12px; padding:16px; background:#f8fafc;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px;">
+                  <div>
+                    <span class="badge-code">${app.schemeCode}</span>
+                    <strong style="font-size:14px; color:#0f172a; margin-left:6px;">${app.applicantName}</strong>
+                    <div style="font-size:12px; color:#475569; margin-top:2px;">Course: ${app.degree} @ ${app.institution}</div>
+                    <div style="font-size:11px; color:#64748b; margin-top:2px;">Annual Income: ₹${app.annualIncome.toLocaleString('en-IN')} | Academic Score: ${app.academicPercentage}%</div>
+                  </div>
+                  <div style="display:flex; gap:8px;">
+                    <button class="btn btn-outline" style="font-size:11px;" onclick="viewCandidateDocsForScrutiny()">👁️ Inspect Uploaded Device Docs (${candidateProfile.documentsUploaded.length})</button>
+                    <button class="btn btn-success" style="font-size:11px;" onclick="alert('Application Approved!')">✓ Approve</button>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function viewCandidateDocsForScrutiny() {
+      if (candidateProfile.documentsUploaded.length === 0) {
+        alert('No documents uploaded by candidate.');
+        return;
+      }
+      viewDocumentPreview(candidateProfile.documentsUploaded[0].id);
+    }
+
+    function openLoginModal(mode) {
+      const modal = document.getElementById('modalContainer');
+      modal.innerHTML = `
+        <div class="modal-overlay">
+          <div class="modal-box" style="max-width:440px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+              <h3 style="font-size:16px; font-weight:800;">${mode === 'officer' ? '🏛️ Officer Login' : '🔑 Student Login'}</h3>
+              <button onclick="closeModal()" style="border:none; background:none; cursor:pointer; font-weight:800;">✕</button>
+            </div>
+            <form onsubmit="handleLoginSubmit(event, '${mode}')">
+              <div class="form-group"><label class="form-label">Aadhaar / Mobile</label><input type="text" class="form-control" value="4819-2041-9921" required /></div>
+              <div class="form-group"><label class="form-label">OTP</label><input type="password" class="form-control" value="123456" required /></div>
+              <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:12px;">Login</button>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleLoginSubmit(e, mode) {
+      e.preventDefault();
+      closeModal();
+      isAuthenticated = true;
+      userRole = mode === 'officer' ? 'admin' : 'student';
+      activeTab = mode === 'officer' ? 'scrutiny' : 'eligibility';
+      renderApp();
+    }
+
+    function closeModal() {
+      document.getElementById('modalContainer').innerHTML = '';
+    }
+
+    // INITIAL RENDER
+    renderApp();
+  </script>
+</body>
+</html>
