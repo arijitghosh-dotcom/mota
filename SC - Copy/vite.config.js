@@ -9,7 +9,7 @@ export default defineConfig({
     open: true
   }
   preview: {
-  allowedHosts: true // Or use ['mota-cs49.onrender.com']
+    allowedHosts: true 
   }
 })
 
